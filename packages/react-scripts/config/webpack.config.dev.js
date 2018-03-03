@@ -20,6 +20,10 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
+/** T3 Custom input */
+const BundleTracker = require('webpack-bundle-tracker');
+/* End T3 Custom input */
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 const publicPath = '/';
