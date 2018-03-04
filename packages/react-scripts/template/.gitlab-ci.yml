@@ -1,0 +1,36 @@
+stages:
+  - build
+  - test
+  - lint
+
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - ./node_modules
+
+build:node:
+  stage: build
+  image: node:8.9.4-alpine
+  script:
+    - npm i
+    - unset CI # we don't want to raise error on linting error
+    - npm run build
+
+test:node:
+  stage: test
+  image: node:8.9.4-alpine
+  script:
+    - yarn run test --coverage
+  dependencies:
+    - build:node
+
+lint:node:
+  stage: lint
+  image: node:8.9.4-alpine
+  script:
+    - unset CI # we don't want to raise error on linting error
+    - ./node_modules/.bin/eslint src
+  dependencies:
+    - test:node
+  allow_failure: true

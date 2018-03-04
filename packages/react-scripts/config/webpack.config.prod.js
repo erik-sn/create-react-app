@@ -23,6 +23,7 @@ const getClientEnvironment = require('./env');
 
 /** T3 Custom input */
 const BundleTracker = require('webpack-bundle-tracker');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 /* End T3 Custom input */
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -183,7 +184,7 @@ module.exports = {
               // @remove-on-eject-end
               compact: true,
             },
-          },,
+          },
           /** T3 Custom input */
           {
             test: /\.scss$/,
@@ -208,6 +209,7 @@ module.exports = {
                     {
                       loader: require.resolve('postcss-loader'),
                       options: {
+                        sourceMap: true,
                         // Necessary for external CSS imports to work
                         // https://github.com/facebookincubator/create-react-app/issues/2677
                         ident: 'postcss',
@@ -226,12 +228,7 @@ module.exports = {
                       },
                     },
                     {
-                      loader: require.resolve('sass-loader'),
-                      options: {
-                        importLoaders: 1,
-                        minimize: true,
-                        sourceMap: shouldUseSourceMap,
-                      },
+                      loader: require.resolve('sass-loader')
                     },
                   ],
                 },
@@ -421,6 +418,7 @@ module.exports = {
   
     /** T3 Custom input */
     new BundleTracker({path: ".", filename: 'webpack-stats.prod.json'}),
+    new BundleAnalyzerPlugin({ analyzerMode: 'static', openAnalyzer: false }),
     /** End T3 Custom input */
   ],
   // Some libraries import Node modules but don't use them in the browser.

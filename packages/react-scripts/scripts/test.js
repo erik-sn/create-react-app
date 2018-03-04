@@ -46,5 +46,16 @@ argv.push(
     )
   )
 );
+
+
+/** T3 Custom */
+const configure = require('enzyme').configure;
+const Adapter = require('enzyme-adapter-react-16');
+
+// enzyme configuration
+configure({ adapter: new Adapter() });
+/* End T3 Custom */
+
+
 // @remove-on-eject-end
 jest.run(argv);
